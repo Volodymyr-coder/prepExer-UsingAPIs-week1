@@ -8,15 +8,17 @@ const DANCING_CAT_URL =
 
 function walk(img, startPos, stopPos) {
   return new Promise((resolve) => {
-    // let currentPos = startPos;
-    // const intervalId = setInterval(() => {
-    //   if (currentPos < stopPos) {
-    //     currentPos += STEP_SIZE_PX;
+    let currentPos = startPos;
+    const intervalId = setInterval(() => {
+      if (currentPos < stopPos - img.width) {
+        currentPos += STEP_SIZE_PX;
         img.style.left = `${currentPos}px`;
       } else {
+        img.style.left = '0px';
         clearInterval(intervalId);
         resolve();
       }
+      console.log(intervalId);
     }, STEP_INTERVAL_MS);
 
     // Resolve this promise when the cat (`img`) has walked from `startPos` to
@@ -25,7 +27,6 @@ function walk(img, startPos, stopPos) {
     // constants.
   });
 }
-
 function dance(img) {
   return new Promise((resolve) => {
     // Switch the `.src` of the `img` from the walking cat to the dancing cat
@@ -40,10 +41,9 @@ function catWalk() {
   const startPos = -img.width;
   const centerPos = (window.innerWidth - img.width) / 2;
   const stopPos = window.innerWidth;
-  console.log(centerPos);
 
   while (true) {
-    walk(img, startPos, stopPos);
+   walk(img, startPos, stopPos);
   }
   // Use the `walk()` and `dance()` functions to let the cat do the following:
   // 1. Walk from `startPos` to `centerPos`.
